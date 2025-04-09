@@ -1,4 +1,4 @@
-#Tic Tac Toe Game
+# Tic Tac Toe Game
 Description
 This project is a Tic Tac Toe game implemented in Java using the JavaFX framework for the graphical user interface. The game follows the MVC (Model-View-Controller) architecture to ensure a clean separation of concerns. It allows two players to play against each other, with features such as restarting the game, changing player symbols before the game starts, and displaying the current player's turn.
 
