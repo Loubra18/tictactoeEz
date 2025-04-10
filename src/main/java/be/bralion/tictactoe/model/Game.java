@@ -108,17 +108,15 @@ public class Game {
         }
     }
 
-    public void playMoveRobot(){
+    public int[] playMoveRobot() throws Exception {
         if (this.state == State.IN_PROGRESS && this.currentPlayer instanceof Robot) {
             Robot robot = (Robot) this.currentPlayer;
-            robot.PlayMove(this);
+            int[] move = robot.PlayMove(this);
             computeNumberOfMoves();
-            try {
-                checkWin();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            checkWin();
+            return move;
         }
+        return null;
     }
 
 

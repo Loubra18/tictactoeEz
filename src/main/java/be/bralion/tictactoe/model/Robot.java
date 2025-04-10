@@ -5,7 +5,7 @@ public class Robot extends Player {
         super(name, piece);
     }
 
-    public void PlayMove(Game game) {
+    public int[] PlayMove(Game game) throws InterruptedException {
         Board board = game.getBoard();
         int size = board.getSize();
         Piece[][] grid = board.getGrid();
@@ -14,9 +14,10 @@ public class Robot extends Player {
             for (int j = 0; j < size; j++) {
                 if (grid[i][j] == null) {
                     grid[i][j] = this.getPiece();
-                    return;
+                    return new int[]{i, j};
                 }
             }
         }
+        return null;
     }
 }

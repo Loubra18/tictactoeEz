@@ -76,34 +76,34 @@ public class GameController extends Application implements GameViewController.Ga
                 return;
             }
             Piece currentPiece = this.gameInstance.getCurrentPlayer().getPiece();
-            this.gameInstance.playMove(rowIndex, columnIndex);
+
+            if(this.gameInstance.getCurrentPlayer() instanceof Robot)
+            {
+                //erreur thead javaFx, bloquant
+                //Thread.sleep(5 * 1000);
+                var move = this.gameInstance.playMoveRobot();
+                rowIndex = move[0];
+                columnIndex = move[1];
+            } else {
+                this.gameInstance.playMove(rowIndex, columnIndex);
+            }
 
             if (gameControllerListener != null) {
                 gameControllerListener.onMovePlay(rowIndex, columnIndex, currentPiece.getSymbol());
+
             }
 
-            // Game end handling
+
             if (gameInstance.getState() == State.WIN) {
                 gameControllerListener.onGameEnd("Le joueur " + gameInstance.getCurrentPlayer().getName() + " a gagné !");
             } else if (gameInstance.getState() == State.EQUALITY) {
                 gameControllerListener.onGameEnd("Match nul !");
             } else {
-                // Change current player
                 gameInstance.changeCurrentPlayer();
                 sendCurrentPlayer();
-//                if(this.gameInstance.getCurrentPlayer() instanceof Robot) {
-//                    this.gameInstance.playMoveRobot();
-//                    gameControllerListener.onMovePlay(rowIndex, columnIndex, currentPiece.getSymbol());
-//                    if (gameInstance.getState() == State.WIN) {
-//                        gameControllerListener.onGameEnd("Le joueur " + gameInstance.getCurrentPlayer().getName() + " a gagné !");
-//                    } else if (gameInstance.getState() == State.EQUALITY) {
-//                        gameControllerListener.onGameEnd("Match nul !");
-//                    } else {
-//                        // Change current player
-//                        gameInstance.changeCurrentPlayer();
-//                        sendCurrentPlayer();
-//                    }
-//                }
+                if(gameInstance.getCurrentPlayer() instanceof Robot) {
+                    OnCellClicked(null, null);
+                }
             }
 
         } catch (InvalidMoveException e){
